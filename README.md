@@ -46,6 +46,12 @@ SAM_CHECKPOINT_URL = "https://your-host/sam_vit_h_4b8939.pth"
 
 If the checkpoint already exists at `sam/sam_vit_h_4b8939.pth`, the app will use the local file instead.
 
+If neither a local checkpoint nor a secret is provided, the app tries the public Meta SAM checkpoint URL used in the notebook:
+
+```text
+https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth
+```
+
 ## Run Locally
 
 ```bash

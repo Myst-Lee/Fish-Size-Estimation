@@ -33,6 +33,8 @@ If you host the checkpoint outside GitHub, add this in Streamlit Community Cloud
 SAM_CHECKPOINT_URL = "https://your-host/sam_vit_h_4b8939.pth"
 ```
 
+If this secret is not set, the app will try to download Meta's public `sam_vit_h_4b8939.pth` checkpoint automatically.
+
 5. On Streamlit Community Cloud, set:
 
 ```text

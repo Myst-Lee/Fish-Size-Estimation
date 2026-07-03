@@ -17,6 +17,7 @@ from src.segmentation import (
 APP_DIR = Path(__file__).resolve().parent
 MODEL_DIR = APP_DIR / "models"
 SAM_CHECKPOINT = APP_DIR / "sam" / "sam_vit_h_4b8939.pth"
+DEFAULT_SAM_CHECKPOINT_URL = "https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth"
 
 
 st.set_page_config(page_title="Fish Length Predictor", layout="wide")
@@ -30,9 +31,9 @@ def get_artifacts():
 @st.cache_resource(show_spinner=False)
 def get_sam_generator():
     try:
-        checkpoint_url = st.secrets.get("SAM_CHECKPOINT_URL", None)
+        checkpoint_url = st.secrets.get("SAM_CHECKPOINT_URL", DEFAULT_SAM_CHECKPOINT_URL)
     except Exception:
-        checkpoint_url = None
+        checkpoint_url = DEFAULT_SAM_CHECKPOINT_URL
     return load_sam_mask_generator(SAM_CHECKPOINT, checkpoint_url=checkpoint_url)
 
 
