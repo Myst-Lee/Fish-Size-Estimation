@@ -1,11 +1,11 @@
 # SAM Checkpoint
 
-Optional automatic segmentation uses:
+Automatic segmentation requires:
 
 ```text
 sam_vit_h_4b8939.pth
 ```
 
-This file is normally too large for a standard GitHub repository. If it is not present, the app still works in **Upload binary mask** mode.
+This file is normally too large for a standard GitHub repository. Host it outside GitHub or use Git LFS if your account limits allow it.
 
-To enable SAM locally, place the checkpoint in this folder.
+Place the checkpoint in this folder before running the app, or set `SAM_CHECKPOINT_URL` in Streamlit secrets so the app can download it on startup.

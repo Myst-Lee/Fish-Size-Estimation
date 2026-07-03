@@ -7,3 +7,6 @@ scipy
 opencv-python-headless
 pillow
 joblib
+torch
+torchvision
+git+https://github.com/facebookresearch/segment-anything.git

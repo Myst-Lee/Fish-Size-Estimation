@@ -28,17 +28,23 @@ In the notebook, these were saved under:
 
 Streamlit will not be able to run the app until these files are present.
 
-## Optional SAM Artifact
+## Required SAM Artifact
 
-For automatic segmentation, place the SAM checkpoint here:
+The app generates the binary mask automatically with SAM. Place the SAM checkpoint here:
 
 ```text
 sam/sam_vit_h_4b8939.pth
 ```
 
-The notebook used Meta's `vit_h` checkpoint. If you do not want to deploy SAM, select **Upload binary mask** in the app and provide a mask manually.
+The notebook used Meta's `vit_h` checkpoint.
 
-The SAM checkpoint is usually too large for normal GitHub commits. For Streamlit Community Cloud, the manual mask mode is the simplest deployment path unless you host the checkpoint elsewhere and add custom download logic.
+The SAM checkpoint is usually too large for normal GitHub commits. For Streamlit Community Cloud, host the checkpoint outside GitHub and add this secret in the Streamlit app settings:
+
+```toml
+SAM_CHECKPOINT_URL = "https://your-host/sam_vit_h_4b8939.pth"
+```
+
+If the checkpoint already exists at `sam/sam_vit_h_4b8939.pth`, the app will use the local file instead.
 
 ## Run Locally
 
@@ -55,6 +61,6 @@ Deploy from GitHub by setting:
 Main file path: streamlit_app.py
 ```
 
-SAM is large and can be slow or memory-heavy on Streamlit Community Cloud. If deployment resources are limited, use the manual mask upload mode, or replace SAM with a lighter segmentation model.
+SAM is large and can be slow or memory-heavy on Streamlit Community Cloud. If deployment resources are limited, replace SAM with a lighter segmentation model before deployment.
 
 The prediction is sensitive to segmentation quality and image scale. The app shows the selected mask overlay before reporting the predicted length.

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 from typing import Any
+from urllib.request import urlretrieve
 
 import cv2
 import numpy as np
@@ -37,16 +38,21 @@ def largest_sam_mask_to_segmentation(masks: list[dict[str, Any]]) -> tuple[list[
     return segmentation_points, bbox, segmentation_mask
 
 
-def load_sam_mask_generator(checkpoint_path: str | Path, model_type: str = "vit_h") -> Any:
+def load_sam_mask_generator(
+    checkpoint_path: str | Path, model_type: str = "vit_h", checkpoint_url: str | None = None
+) -> Any:
     import torch
     from segment_anything import SamAutomaticMaskGenerator, sam_model_registry
 
     checkpoint = Path(checkpoint_path)
     if not checkpoint.exists():
-        raise FileNotFoundError(
-            f"SAM checkpoint not found at {checkpoint}. Download sam_vit_h_4b8939.pth "
-            "and place it in the sam/ folder, or use manual mask upload."
-        )
+        if not checkpoint_url:
+            raise FileNotFoundError(
+                f"SAM checkpoint not found at {checkpoint}. Place sam_vit_h_4b8939.pth "
+                "in the sam/ folder or set SAM_CHECKPOINT_URL in Streamlit secrets."
+            )
+        checkpoint.parent.mkdir(parents=True, exist_ok=True)
+        urlretrieve(checkpoint_url, checkpoint)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     sam = sam_model_registry[model_type](checkpoint=str(checkpoint))

@@ -17,15 +17,21 @@ final_feature_columns.json
 streamlit_app.py
 ```
 
-3. Use `requirements.txt` for the simplest Streamlit Community Cloud deployment.
+3. Use `requirements.txt` for Streamlit Community Cloud deployment.
 
-4. If you want SAM automatic segmentation, install the optional dependencies from `requirements-sam.txt` and provide the checkpoint:
+4. Provide the SAM checkpoint:
 
 ```text
 sam/sam_vit_h_4b8939.pth
 ```
 
-The SAM checkpoint is usually too large for a normal GitHub repository. Without it, the app still supports manual binary mask upload.
+The SAM checkpoint is usually too large for a normal GitHub repository. The app requires SAM because the binary mask is generated automatically from the uploaded fish image.
+
+If you host the checkpoint outside GitHub, add this in Streamlit Community Cloud secrets:
+
+```toml
+SAM_CHECKPOINT_URL = "https://your-host/sam_vit_h_4b8939.pth"
+```
 
 5. On Streamlit Community Cloud, set:
 
