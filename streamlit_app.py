@@ -74,7 +74,7 @@ image_rgb = read_image(uploaded_image)
 image_height, image_width = image_rgb.shape[:2]
 
 with right:
-    st.image(image_rgb, caption="Uploaded image", use_container_width=True)
+    st.image(image_rgb, caption="Uploaded image", width="stretch")
 
 mask = None
 segmentation = None
@@ -96,7 +96,7 @@ segmentation, bbox, mask = result
 
 preview, metrics = st.columns([1.1, 0.9])
 with preview:
-    st.image(overlay_mask(image_rgb, mask), caption="Selected mask overlay", use_container_width=True)
+    st.image(overlay_mask(image_rgb, mask), caption="Selected mask overlay", width="stretch")
 
 with metrics:
     try:
@@ -121,9 +121,9 @@ with st.expander("Extracted morphology and ratio features"):
             "Feature": list(morphology.keys()) + list(ratios.keys()),
             "Value": list(morphology.values()) + list(ratios.values()),
         },
-        use_container_width=True,
+        width="stretch",
         hide_index=True,
     )
 
 with st.expander("Model input row"):
-    st.dataframe(feature_frame, use_container_width=True, hide_index=True)
+    st.dataframe(feature_frame, width="stretch", hide_index=True)
