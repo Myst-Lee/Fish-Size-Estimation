@@ -1,0 +1,4 @@
+-r requirements.txt
+torch
+torchvision
+git+https://github.com/facebookresearch/segment-anything.git
